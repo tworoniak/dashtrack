@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /Users/thomasworoniak/Downloads/WebDevelopment/MyProjects/dashtrack -name *.test.* -o -name *.spec.* -o -name *.test)"
+    ]
+  }
+}

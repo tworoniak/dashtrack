@@ -1,0 +1,43 @@
+:root {
+  // Brand
+  --color-brand: #eb1700;
+  --color-green: #1d9e75;
+  --color-danger: #d85a30;
+  --color-warning: #ef9f27;
+  --color-info: #378add;
+
+  // Backgrounds
+  --color-bg-page: #f6f6f4;
+  --color-bg-surface: #ffffff;
+  --color-bg-secondary: #f1f0ee;
+  --color-bg-hover: #eeede9;
+  --color-bg-active: #e8f5f0;
+
+  // Text
+  --color-text-primary: #1a1a18;
+  --color-text-secondary: #6b6a65;
+  --color-text-muted: #9e9d98;
+
+  // Borders
+  --color-border: rgba(0, 0, 0, 0.1);
+
+  // Typography
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-page: #111110;
+    --color-bg-surface: #1c1c1a;
+    --color-bg-secondary: #252522;
+    --color-bg-hover: #2c2c29;
+    --color-bg-active: #1a2e27;
+
+    --color-text-primary: #eeecea;
+    --color-text-secondary: #9a9892;
+    --color-text-muted: #6a6a64;
+
+    --color-border: rgba(255, 255, 255, 0.1);
+  }
+}

@@ -1,0 +1,248 @@
+.page {
+  max-width: 1000px;
+}
+
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: 2px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 1.25rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.stat {
+  background: var(--color-bg-secondary);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+.statValue {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.loading, .empty {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  padding: 2rem 0;
+}
+
+.card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  th {
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+    background: var(--color-bg-page);
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    vertical-align: middle;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover:not(.editRow) td {
+    background: var(--color-bg-secondary);
+  }
+}
+
+.right    { text-align: right !important; }
+.earn     { color: var(--color-green) !important; font-weight: 500; }
+.dateCell { white-space: nowrap; color: var(--color-text-secondary) !important; }
+.notesCell {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text-secondary) !important;
+}
+
+.actions {
+  text-align: right;
+  white-space: nowrap;
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.editBtn, .deleteBtn {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.editBtn {
+  color: var(--color-text-secondary);
+
+  &:hover {
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+  }
+}
+
+.deleteBtn {
+  color: var(--color-danger);
+  border-color: transparent;
+
+  &:hover {
+    background: #FAECE7;
+    border-color: var(--color-danger);
+  }
+}
+
+// ─── Inline edit form ─────────────────────────────────────────
+
+.editRow td {
+  background: var(--color-bg-active) !important;
+  padding: 12px 14px;
+}
+
+.inlineForm {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-green);
+  }
+}
+
+.inlineActions {
+  display: flex;
+  gap: 6px;
+  padding-bottom: 1px;
+}
+
+.saveBtn {
+  padding: 8px 14px;
+  background: var(--color-green);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:disabled { opacity: 0.6; }
+}
+
+.cancelBtn {
+  padding: 8px 14px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+
+  &:hover { background: var(--color-bg-secondary); }
+}
+
+// ─── Pagination ───────────────────────────────────────────────
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 14px;
+  border-top: 1px solid var(--color-border);
+}
+
+.pageBtn {
+  font-size: 13px;
+  padding: 6px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background: var(--color-bg-secondary);
+  }
+}
+
+.pageInfo {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}

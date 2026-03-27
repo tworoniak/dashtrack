@@ -1,0 +1,73 @@
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  th {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    text-align: left;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  td {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    vertical-align: middle;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.date {
+  color: var(--color-text-secondary) !important;
+  white-space: nowrap;
+  padding-right: 12px;
+}
+
+.desc {
+  color: var(--color-text-secondary) !important;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.right {
+  text-align: right;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.earn    { color: var(--color-green)  !important; }
+.expense { color: var(--color-danger) !important; }
+
+// Type pills
+.pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.earning     { background: #E1F5EE; color: #0F6E56; }
+.gas         { background: #FAEEDA; color: #854F0B; }
+.mileage     { background: #E6F1FB; color: #185FA5; }
+.maintenance { background: #EEEDFE; color: #3C3489; }
+.other       { background: #F1EFE8; color: #5F5E5A; }
+
+.empty {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  padding: 1rem 0;
+}

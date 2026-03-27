@@ -1,0 +1,93 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--color-bg-page);
+  color: var(--color-text-primary);
+  transition: border-color 0.15s;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-green);
+  }
+
+  &::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  &.hasError {
+    border-color: var(--color-danger);
+  }
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.calcPreview {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  padding: 10px 12px;
+  background: var(--color-bg-secondary);
+  border-radius: 8px;
+
+  strong {
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 0.5rem;
+}
+
+.submitBtn {
+  padding: 10px 24px;
+  background: var(--color-green);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.15s;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+}
+
+.successMsg {
+  font-size: 13px;
+  color: var(--color-green);
+  padding: 10px 12px;
+  background: #E1F5EE;
+  border-radius: 8px;
+  text-align: center;
+}
