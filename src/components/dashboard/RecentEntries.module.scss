@@ -8,16 +8,19 @@
   font-size: 13px;
 
   th {
-    color: var(--color-text-secondary);
-    font-weight: 500;
+    color: var(--color-text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
     text-align: left;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid #f5f5f5;
   }
 
   td {
     padding: 10px 0;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid #f5f5f5;
     color: var(--color-text-primary);
     vertical-align: middle;
   }
@@ -28,12 +31,14 @@
 }
 
 .date {
+  font-size: 13px;
   color: var(--color-text-secondary) !important;
   white-space: nowrap;
   padding-right: 12px;
 }
 
 .desc {
+  font-size: 13px;
   color: var(--color-text-secondary) !important;
   max-width: 260px;
   overflow: hidden;
@@ -43,28 +48,28 @@
 
 .right {
   text-align: right;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
 }
 
-.earn    { color: var(--color-green)  !important; }
-.expense { color: var(--color-danger) !important; }
+.earn    { color: #00a67e !important; }
+.expense { color: #ff385c !important; }
 
-// Type pills
+// Type pills — full pill with semantic color pairs
 .pill {
   display: inline-block;
   font-size: 11px;
-  font-weight: 500;
-  padding: 3px 8px;
-  border-radius: 4px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
   white-space: nowrap;
 }
 
-.earning     { background: #E1F5EE; color: #0F6E56; }
-.gas         { background: #FAEEDA; color: #854F0B; }
-.mileage     { background: #E6F1FB; color: #185FA5; }
-.maintenance { background: #EEEDFE; color: #3C3489; }
-.other       { background: #F1EFE8; color: #5F5E5A; }
+.earning     { background: #eaf7f1; color: #0a6640; }
+.gas         { background: #fff5e0; color: #854f0b; }
+.mileage     { background: #e8f4fd; color: #185fa5; }
+.maintenance { background: #f0effe; color: #3c3489; }
+.other       { background: #f1efe8; color: #5f5e5a; }
 
 .empty {
   font-size: 13px;

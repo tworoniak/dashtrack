@@ -11,7 +11,8 @@
 
 .title {
   font-size: 22px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: -0.44px;
   color: var(--color-text-primary);
   margin-bottom: 2px;
 }
@@ -44,7 +45,7 @@
   gap: 12px;
   margin-bottom: 12px;
 
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 }
@@ -53,8 +54,8 @@
 .breakdownCard,
 .recentCard {
   background: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
   padding: 1rem 1.25rem;
 }
 
@@ -64,6 +65,6 @@
 
 .cardTitle {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text-primary);
 }

@@ -20,17 +20,17 @@ export default function EarningsChart({ data }: Props) {
       <BarChart data={data} margin={{ top: 4, right: 4, left: -16, bottom: 0 }}>
         <CartesianGrid
           strokeDasharray='3 3'
-          stroke='rgba(0,0,0,0.06)'
+          stroke='#f5f5f5'
           vertical={false}
         />
         <XAxis
           dataKey='label'
-          tick={{ fontSize: 11, fill: '#888780' }}
+          tick={{ fontSize: 12, fill: '#929292' }}
           axisLine={false}
           tickLine={false}
         />
         <YAxis
-          tick={{ fontSize: 11, fill: '#888780' }}
+          tick={{ fontSize: 12, fill: '#929292' }}
           axisLine={false}
           tickLine={false}
           tickFormatter={(v) => `$${v}`}
@@ -40,29 +40,13 @@ export default function EarningsChart({ data }: Props) {
           contentStyle={{
             fontSize: 12,
             borderRadius: 8,
-            // border: '1px solid rgba(0,0,0,0.1)',
-            backgroundColor: 'rgba(0,0,0,0.8)',
-            border: '1px solid rgba(255,255,255,0.1)',
+            backgroundColor: '#ffffff',
+            border: 'none',
+            boxShadow: 'rgba(0,0,0,0.02) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 6px, rgba(0,0,0,0.08) 0px 4px 8px',
+            color: '#222222',
           }}
           cursor={{ fill: 'transparent' }}
         />
-        {/* <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'rgba(0,0,0,0.8)',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      borderRadius: '4px',
-                    }}
-                    itemStyle={{
-                      color: '#e2e8f0',
-                      fontSize: '13px',
-                    }}
-                    labelStyle={{
-                      color: '#94a3b8',
-                      fontSize: '12px',
-                      marginBottom: '4px',
-                    }}
-                    cursor={{ fill: 'transparent' }}
-                  /> */}
         <Legend
           iconType='square'
           iconSize={10}
@@ -71,15 +55,15 @@ export default function EarningsChart({ data }: Props) {
         <Bar
           dataKey='earnings'
           name='Earnings'
-          fill='#1D9E75'
-          radius={[4, 4, 0, 0]}
+          fill='#00a67e'
+          radius={[6, 6, 0, 0]}
           maxBarSize={32}
         />
         <Bar
           dataKey='expenses'
           name='Expenses'
-          fill='#F0997B'
-          radius={[4, 4, 0, 0]}
+          fill='#ff385c'
+          radius={[6, 6, 0, 0]}
           maxBarSize={32}
         />
       </BarChart>

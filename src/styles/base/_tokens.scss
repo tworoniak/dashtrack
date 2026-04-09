@@ -1,43 +1,43 @@
 :root {
-  // Brand
-  --color-brand: #eb1700;
-  --color-green: #1d9e75;
-  --color-danger: #d85a30;
+  // ── Airbnb palette tokens ────────────────────────────────────
+  --palette-bg-primary-core:    #ff385c;   // Rausch Red
+  --palette-bg-tertiary-core:   #e00b41;   // Deep Rausch (pressed)
+  --palette-text-primary-error: #c13515;   // Error text on light
+  --palette-text-primary:       #222222;   // Near-black
+  --palette-text-focused:       #3f3f3f;
+  --palette-text-link-disabled: #929292;
+
+  // ── Brand ───────────────────────────────────────────────────
+  --color-brand:   #ff385c;   // Rausch Red — CTAs and active states only
+  --color-green:   #00a67e;   // Profit / positive values
+  --color-danger:  #ff385c;   // Expense / negative values
   --color-warning: #ef9f27;
-  --color-info: #378add;
+  --color-info:    #428bff;   // Legal blue
 
-  // Backgrounds
-  --color-bg-page: #f6f6f4;
-  --color-bg-surface: #ffffff;
-  --color-bg-secondary: #f1f0ee;
-  --color-bg-hover: #eeede9;
-  --color-bg-active: #e8f5f0;
+  // ── Backgrounds ─────────────────────────────────────────────
+  --color-bg-page:      #ffffff;   // Pure white canvas
+  --color-bg-surface:   #ffffff;
+  --color-bg-secondary: #f2f2f2;   // Light surface — pill outer, nav bg
+  --color-bg-hover:     #f5f5f5;
+  --color-bg-active:    #fff5f7;   // Nav active item bg (Rausch tint)
 
-  // Text
-  --color-text-primary: #1a1a18;
-  --color-text-secondary: #6b6a65;
-  --color-text-muted: #9e9d98;
+  // ── Text ────────────────────────────────────────────────────
+  --color-text-primary:   #222222;   // Warm near-black — never #000000
+  --color-text-secondary: #6a6a6a;
+  --color-text-muted:     #929292;
 
-  // Borders
-  --color-border: rgba(0, 0, 0, 0.1);
+  // ── Borders ─────────────────────────────────────────────────
+  --color-border:      #f0f0f0;   // Structural dividers
+  --color-border-form: #c1c1c1;   // Form input borders
 
-  // Typography
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  // ── Elevation ───────────────────────────────────────────────
+  --shadow-card:
+    rgba(0, 0, 0, 0.02) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.04) 0px 2px 6px,
+    rgba(0, 0, 0, 0.08) 0px 4px 8px;
+  --shadow-active-pill: rgba(0, 0, 0, 0.08) 0px 2px 6px;
+
+  // ── Typography ──────────────────────────────────────────────
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg-page: #111110;
-    --color-bg-surface: #1c1c1a;
-    --color-bg-secondary: #252522;
-    --color-bg-hover: #2c2c29;
-    --color-bg-active: #1a2e27;
-
-    --color-text-primary: #eeecea;
-    --color-text-secondary: #9a9892;
-    --color-text-muted: #6a6a64;
-
-    --color-border: rgba(255, 255, 255, 0.1);
-  }
 }

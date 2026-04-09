@@ -46,7 +46,7 @@
 
 .amount {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text-primary);
   min-width: 60px;
   text-align: right;
@@ -62,7 +62,7 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 10px;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid #f5f5f5;
   margin-top: 4px;
 }
 
@@ -73,6 +73,6 @@
 
 .netValue {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text-primary);
 }

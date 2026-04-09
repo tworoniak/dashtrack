@@ -4,3 +4,11 @@ dist
 .env.local
 *.local
 .DS_Store
+
+CLAUDE.md
+
+DESIGN.md
+
+.claude/*
+
+.mcp.json

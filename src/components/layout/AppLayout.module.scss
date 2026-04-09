@@ -26,10 +26,10 @@
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: var(--color-green);
+  background: var(--color-brand);
   color: #fff;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +37,7 @@
 
 .brandName {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text-primary);
 }
 
@@ -53,9 +53,11 @@
   padding: 8px 12px;
   border-radius: 8px;
   font-size: 14px;
+  font-weight: 500;
   color: var(--color-text-secondary);
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
+  border-right: 2px solid transparent;
 
   &:hover {
     background: var(--color-bg-hover);
@@ -64,8 +66,9 @@
 
   &.active {
     background: var(--color-bg-active);
-    color: var(--color-green);
-    font-weight: 500;
+    color: var(--color-brand);
+    font-weight: 600;
+    border-right-color: var(--color-brand);
   }
 }
 
@@ -89,6 +92,7 @@
 
 .main {
   flex: 1;
-  padding: 2rem 2.5rem;
+  padding: 32px 40px;
   overflow-y: auto;
+  background: var(--color-bg-surface);
 }
