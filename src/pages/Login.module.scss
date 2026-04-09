@@ -3,16 +3,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg-page);
+  background: var(--color-bg-secondary);
   padding: 1rem;
 }
 
 .card {
   width: 100%;
   max-width: 400px;
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
   padding: 2rem;
 }
 
@@ -27,10 +27,10 @@
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: var(--color-green);
+  background: var(--color-brand);
   color: #fff;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,13 +38,14 @@
 
 .name {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text-primary);
 }
 
 .title {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: -0.44px;
   color: var(--color-text-primary);
   margin-bottom: 6px;
 }
@@ -70,16 +71,18 @@
 .input {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-form);
   border-radius: 8px;
   font-size: 14px;
   font-family: inherit;
-  background: var(--color-bg-page);
+  background: #ffffff;
   color: var(--color-text-primary);
+  transition: border-color 0.15s, box-shadow 0.15s;
 
   &:focus {
     outline: none;
-    border-color: var(--color-green);
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 2px rgba(255, 56, 92, 0.15);
   }
 }
 
@@ -89,16 +92,17 @@
 }
 
 .btn {
-  padding: 10px;
-  background: var(--color-green);
+  padding: 0 24px;
+  height: 48px;
+  background: #222222;
   color: #fff;
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: background 0.2s;
 
   &:disabled {
     opacity: 0.6;
@@ -106,7 +110,7 @@
   }
 
   &:hover:not(:disabled) {
-    opacity: 0.9;
+    background: var(--color-brand);
   }
 }
 
@@ -117,7 +121,7 @@
 
 .sentTitle {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text-primary);
   margin-bottom: 6px;
 }

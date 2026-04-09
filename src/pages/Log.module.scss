@@ -1,5 +1,6 @@
 .page {
-  max-width: 640px;
+  max-width: 560px;
+  margin: 0 auto;
 }
 
 .header {
@@ -8,7 +9,8 @@
 
 .title {
   font-size: 22px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: -0.44px;
   color: var(--color-text-primary);
   margin-bottom: 2px;
 }
@@ -20,8 +22,8 @@
 
 .card {
   background: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -52,9 +54,9 @@
   }
 
   &.activeTab {
-    color: var(--color-green);
-    border-bottom-color: var(--color-green);
-    font-weight: 500;
+    color: var(--color-brand);
+    border-bottom-color: var(--color-brand);
+    font-weight: 600;
     background: var(--color-bg-surface);
   }
 }

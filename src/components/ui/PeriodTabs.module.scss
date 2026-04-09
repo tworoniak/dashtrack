@@ -2,20 +2,21 @@
   display: flex;
   gap: 2px;
   background: var(--color-bg-secondary);
-  border-radius: 8px;
+  border-radius: 20px;
   padding: 3px;
 }
 
 .tab {
-  padding: 5px 12px;
-  border-radius: 6px;
+  padding: 5px 14px;
+  border-radius: 16px;
   border: none;
   background: transparent;
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 500;
   font-family: inherit;
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
 
   &:hover {
     color: var(--color-text-primary);
@@ -25,6 +26,6 @@
     background: var(--color-bg-surface);
     color: var(--color-text-primary);
     font-weight: 500;
-    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-active-pill);
   }
 }
