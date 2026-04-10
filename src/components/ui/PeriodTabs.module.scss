@@ -4,6 +4,11 @@
   background: var(--color-bg-secondary);
   border-radius: 20px;
   padding: 3px;
+
+  @media (max-width: 768px) {
+    gap: 1px;
+    align-self: center;
+  }
 }
 
 .tab {
@@ -16,7 +21,10 @@
   font-family: inherit;
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
 
   &:hover {
     color: var(--color-text-primary);
