@@ -1,21 +1,28 @@
-import { Outlet, NavLink, useNavigate } from 'react-router-dom'
-import { supabase } from '@/lib/supabase'
-import styles from './AppLayout.module.scss'
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { supabase } from '@/lib/supabase';
+import styles from './AppLayout.module.scss';
+import {
+  Car,
+  ChartColumnIncreasing,
+  CircleDollarSign,
+  Landmark,
+  LayoutDashboard,
+} from 'lucide-react';
 
 const NAV_ITEMS = [
-  { to: '/dashboard',    label: 'Dashboard' },
-  { to: '/log',          label: 'Log entry' },
-  { to: '/earnings',     label: 'Earnings' },
-  { to: '/reports',      label: 'Reports' },
-  { to: '/tax-estimate', label: 'Tax estimate' },
-]
+  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/log', label: 'Log entry', icon: Car },
+  { to: '/earnings', label: 'Earnings', icon: CircleDollarSign },
+  { to: '/reports', label: 'Reports', icon: ChartColumnIncreasing },
+  { to: '/tax-estimate', label: 'Tax estimate', icon: Landmark },
+];
 
 export default function AppLayout() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   async function handleSignOut() {
-    await supabase.auth.signOut()
-    navigate('/login')
+    await supabase.auth.signOut();
+    navigate('/login');
   }
 
   return (
@@ -27,7 +34,7 @@ export default function AppLayout() {
         </div>
 
         <nav className={styles.nav}>
-          {NAV_ITEMS.map(({ to, label }) => (
+          {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
@@ -35,6 +42,7 @@ export default function AppLayout() {
                 `${styles.navItem} ${isActive ? styles.active : ''}`
               }
             >
+              <Icon size={16} />
               {label}
             </NavLink>
           ))}
@@ -49,5 +57,5 @@ export default function AppLayout() {
         <Outlet />
       </main>
     </div>
-  )
+  );
 }

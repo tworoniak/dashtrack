@@ -12,11 +12,14 @@
       "mcp__neurostack__add_decision",
       "mcp__neurostack__append_worklog",
       "mcp__neurostack__remove_from_active_work",
-      "mcp__neurostack__write_file"
+      "mcp__neurostack__write_file",
+      "Bash(git:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["neurostack"],
+  "enabledMcpjsonServers": [
+    "neurostack"
+  ],
   "mcpServers": {
     "neurostack": {
       "command": "node",

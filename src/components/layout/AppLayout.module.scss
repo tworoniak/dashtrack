@@ -49,14 +49,18 @@
 }
 
 .navItem {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   padding: 8px 12px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   color: var(--color-text-secondary);
   text-decoration: none;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
   border-right: 2px solid transparent;
 
   &:hover {
