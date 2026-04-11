@@ -1,17 +1,15 @@
-import { useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format } from 'date-fns'
 import { gasSchema, type GasSchema } from '@/lib/schemas'
 import { useLogGas } from '@/hooks/useLogEntry'
+import { useFormSubmit } from '@/hooks/useFormSubmit'
 import FormField from '@/components/ui/FormField'
 import styles from './forms.module.scss'
 
 const todayISO = () => format(new Date(), "yyyy-MM-dd'T'HH:mm")
 
 export default function GasForm() {
-  const [success, setSuccess] = useState(false)
-  const [submitError, setSubmitError] = useState<string | null>(null)
   const { mutateAsync, isPending } = useLogGas()
 
   const { register, handleSubmit, reset, control, formState: { errors } } = useForm<GasSchema>({
@@ -23,17 +21,7 @@ export default function GasForm() {
   const pricePerGallon = useWatch({ control, name: 'price_per_gallon' })
   const total = gallons && pricePerGallon ? (gallons * pricePerGallon).toFixed(2) : null
 
-  async function onSubmit(values: GasSchema) {
-    setSubmitError(null)
-    try {
-      await mutateAsync(values)
-      reset({ dashed_at: todayISO() })
-      setSuccess(true)
-      setTimeout(() => setSuccess(false), 3000)
-    } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : 'Failed to save. Please try again.')
-    }
-  }
+  const { onSubmit, submitError, success } = useFormSubmit(mutateAsync, () => reset({ dashed_at: todayISO() }))
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
