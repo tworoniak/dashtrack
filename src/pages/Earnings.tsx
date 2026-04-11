@@ -22,6 +22,7 @@ async function fetchEarnings(page: number): Promise<{ data: Earning[]; count: nu
   const { data, error, count } = await supabase
     .from('earnings')
     .select('*', { count: 'exact' })
+    .is('deleted_at', null)
     .order('dashed_at', { ascending: false })
     .range(from, to)
 
@@ -152,6 +153,7 @@ export default function Earnings() {
                         </FormField>
                         <div className={styles.inlineActions}>
                           <button type="submit" className={styles.saveBtn} disabled={saving}>
+                            {saving && <span className={styles.spinner} aria-hidden="true" />}
                             {saving ? 'Saving…' : 'Save'}
                           </button>
                           <button type="button" className={styles.cancelBtn} onClick={() => { setEditingId(null); reset() }}>

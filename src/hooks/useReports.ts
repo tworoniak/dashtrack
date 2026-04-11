@@ -22,8 +22,8 @@ async function fetchYear(year: number): Promise<{ earnings: Earning[]; expenses:
   const to   = endOfYear(yearDate).toISOString()
 
   const [{ data: earnings, error: e1 }, { data: expenses, error: e2 }] = await Promise.all([
-    supabase.from('earnings').select('*').gte('dashed_at', from).lte('dashed_at', to),
-    supabase.from('expenses').select('*').gte('expensed_at', from).lte('expensed_at', to),
+    supabase.from('earnings').select('*').gte('dashed_at', from).lte('dashed_at', to).is('deleted_at', null),
+    supabase.from('expenses').select('*').gte('expensed_at', from).lte('expensed_at', to).is('deleted_at', null),
   ])
 
   if (e1) throw e1

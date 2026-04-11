@@ -71,6 +71,7 @@ export default function GasForm() {
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submitBtn} disabled={isPending}>
+          {isPending && <span className={styles.spinner} aria-hidden="true" />}
           {isPending ? 'Saving…' : 'Log gas'}
         </button>
       </div>

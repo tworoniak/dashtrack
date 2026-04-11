@@ -70,6 +70,7 @@ export default function EarningForm() {
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submitBtn} disabled={isPending}>
+          {isPending && <span className={styles.spinner} aria-hidden="true" />}
           {isPending ? 'Saving…' : 'Log earnings'}
         </button>
       </div>

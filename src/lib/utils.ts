@@ -97,6 +97,13 @@ export function buildDailySeries(
   }))
 }
 
+// ─── Rounding helper ─────────────────────────────────────────────────────────
+
+/** Round to 2 decimal places using Math.round to avoid float drift */
+export function round2(n: number): number {
+  return Math.round(n * 100) / 100
+}
+
 // ─── Currency formatter ───────────────────────────────────────────────────────
 
 export function formatCurrency(value: number): string {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useReports, FIRST_YEAR, CURRENT_YEAR } from '@/hooks/useReports'
-import { formatCurrency } from '@/lib/utils'
+import { formatCurrency, round2 } from '@/lib/utils'
 import styles from './TaxEstimate.module.scss'
 
 const YEARS = Array.from({ length: CURRENT_YEAR - FIRST_YEAR + 1 }, (_, i) => CURRENT_YEAR - i)
@@ -50,9 +50,9 @@ export default function TaxEstimate() {
 
   // SE tax calculation
   const netSEIncome    = Math.max(0, ytdNet)
-  const seTaxBase      = netSEIncome * SE_TAX_RATE
-  const seTax          = seTaxBase * SE_TAX_RATE_FULL
-  const seDeduction    = seTax * SE_DEDUCTION_RATE
+  const seTaxBase      = round2(netSEIncome * SE_TAX_RATE)
+  const seTax          = round2(seTaxBase * SE_TAX_RATE_FULL)
+  const seDeduction    = round2(seTax * SE_DEDUCTION_RATE)
 
   // Federal income tax estimate
   const stdDeduction   = filingStatus === 'mfj' ? 29200 : STANDARD_DEDUCTION

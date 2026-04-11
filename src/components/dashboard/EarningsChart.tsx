@@ -16,6 +16,7 @@ interface Props {
 
 export default function EarningsChart({ data }: Props) {
   return (
+    <div role="img" aria-label="Bar chart comparing daily earnings and expenses">
     <ResponsiveContainer width='100%' height={200}>
       <BarChart data={data} margin={{ top: 4, right: 4, left: -16, bottom: 0 }}>
         <CartesianGrid
@@ -68,5 +69,6 @@ export default function EarningsChart({ data }: Props) {
         />
       </BarChart>
     </ResponsiveContainer>
+    </div>
   );
 }

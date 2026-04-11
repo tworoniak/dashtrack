@@ -9,7 +9,7 @@ export function useDeleteEarning() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: async (id: string) => {
-      await supabase.from('earnings').delete().eq('id', id).throwOnError()
+      await supabase.from('earnings').update({ deleted_at: new Date().toISOString() }).eq('id', id).throwOnError()
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ['earnings'] }),
   })
@@ -19,7 +19,7 @@ export function useDeleteExpense() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: async (id: string) => {
-      await supabase.from('expenses').delete().eq('id', id).throwOnError()
+      await supabase.from('expenses').update({ deleted_at: new Date().toISOString() }).eq('id', id).throwOnError()
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ['expenses'] }),
   })

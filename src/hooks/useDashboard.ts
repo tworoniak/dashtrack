@@ -9,6 +9,7 @@ async function fetchEarnings(from: string, to: string): Promise<Earning[]> {
     .select('*')
     .gte('dashed_at', from)
     .lte('dashed_at', to)
+    .is('deleted_at', null)
     .order('dashed_at', { ascending: false })
 
   if (error) throw error
@@ -21,6 +22,7 @@ async function fetchExpenses(from: string, to: string): Promise<Expense[]> {
     .select('*')
     .gte('expensed_at', from)
     .lte('expensed_at', to)
+    .is('deleted_at', null)
     .order('expensed_at', { ascending: false })
 
   if (error) throw error
