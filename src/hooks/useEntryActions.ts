@@ -8,7 +8,9 @@ import type { EarningSchema, GasSchema, MileageSchema, MaintenanceSchema, OtherS
 export function useDeleteEarning() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: string) => supabase.from('earnings').delete().eq('id', id).throwOnError(),
+    mutationFn: async (id: string) => {
+      await supabase.from('earnings').delete().eq('id', id).throwOnError()
+    },
     onSuccess: () => qc.invalidateQueries({ queryKey: ['earnings'] }),
   })
 }
@@ -16,7 +18,9 @@ export function useDeleteEarning() {
 export function useDeleteExpense() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: string) => supabase.from('expenses').delete().eq('id', id).throwOnError(),
+    mutationFn: async (id: string) => {
+      await supabase.from('expenses').delete().eq('id', id).throwOnError()
+    },
     onSuccess: () => qc.invalidateQueries({ queryKey: ['expenses'] }),
   })
 }
@@ -26,13 +30,14 @@ export function useDeleteExpense() {
 export function useEditEarning() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: ({ id, values }: { id: string; values: EarningSchema }) =>
-      supabase.from('earnings').update({
+    mutationFn: async ({ id, values }: { id: string; values: EarningSchema }) => {
+      await supabase.from('earnings').update({
         amount:       values.amount,
         active_hours: values.active_hours,
         notes:        values.notes ?? null,
         dashed_at:    values.dashed_at,
-      }).eq('id', id).throwOnError(),
+      }).eq('id', id).throwOnError()
+    },
     onSuccess: () => qc.invalidateQueries({ queryKey: ['earnings'] }),
   })
 }
@@ -40,7 +45,7 @@ export function useEditEarning() {
 export function useEditExpense() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: ({ id, type, values }: {
+    mutationFn: async ({ id, type, values }: {
       id: string
       type: string
       values: GasSchema | MileageSchema | MaintenanceSchema | OtherSchema
@@ -70,7 +75,7 @@ export function useEditExpense() {
         patch = { ...patch, amount: v.amount, description: v.description }
       }
 
-      return supabase.from('expenses').update(patch).eq('id', id).throwOnError()
+      await supabase.from('expenses').update(patch).eq('id', id).throwOnError()
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ['expenses'] }),
   })

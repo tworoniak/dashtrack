@@ -11,6 +11,7 @@ const todayISO = () => format(new Date(), "yyyy-MM-dd'T'HH:mm")
 
 export default function GasForm() {
   const [success, setSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const { mutateAsync, isPending } = useLogGas()
 
   const { register, handleSubmit, reset, control, formState: { errors } } = useForm<GasSchema>({
@@ -23,10 +24,15 @@ export default function GasForm() {
   const total = gallons && pricePerGallon ? (gallons * pricePerGallon).toFixed(2) : null
 
   async function onSubmit(values: GasSchema) {
-    await mutateAsync(values)
-    reset({ dashed_at: todayISO() })
-    setSuccess(true)
-    setTimeout(() => setSuccess(false), 3000)
+    setSubmitError(null)
+    try {
+      await mutateAsync(values)
+      reset({ dashed_at: todayISO() })
+      setSuccess(true)
+      setTimeout(() => setSuccess(false), 3000)
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Failed to save. Please try again.')
+    }
   }
 
   return (
@@ -72,6 +78,7 @@ export default function GasForm() {
         />
       </FormField>
 
+      {submitError && <p className={styles.errorMsg}>{submitError}</p>}
       {success && <p className={styles.successMsg}>Gas fill-up logged!</p>}
 
       <div className={styles.actions}>

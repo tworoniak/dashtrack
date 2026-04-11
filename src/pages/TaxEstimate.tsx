@@ -38,7 +38,7 @@ const QUARTERS = [
 ]
 
 export default function TaxEstimate() {
-  const { data, isLoading } = useReports()
+  const { data, isLoading, isError } = useReports()
   const [otherIncome, setOtherIncome] = useState(0)
   const [filingStatus, setFilingStatus] = useState<'single' | 'mfj'>('single')
 
@@ -76,6 +76,8 @@ export default function TaxEstimate() {
 
       {isLoading ? (
         <p className={styles.loading}>Loading…</p>
+      ) : isError ? (
+        <p className={styles.error}>Failed to load tax data. Please refresh the page.</p>
       ) : (
         <>
           {/* Inputs */}

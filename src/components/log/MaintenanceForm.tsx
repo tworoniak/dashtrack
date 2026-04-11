@@ -11,6 +11,7 @@ const todayISO = () => format(new Date(), "yyyy-MM-dd'T'HH:mm")
 
 export default function MaintenanceForm() {
   const [success, setSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const { mutateAsync, isPending } = useLogMaintenance()
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<MaintenanceSchema>({
@@ -19,10 +20,15 @@ export default function MaintenanceForm() {
   })
 
   async function onSubmit(values: MaintenanceSchema) {
-    await mutateAsync(values)
-    reset({ dashed_at: todayISO() })
-    setSuccess(true)
-    setTimeout(() => setSuccess(false), 3000)
+    setSubmitError(null)
+    try {
+      await mutateAsync(values)
+      reset({ dashed_at: todayISO() })
+      setSuccess(true)
+      setTimeout(() => setSuccess(false), 3000)
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Failed to save. Please try again.')
+    }
   }
 
   return (
@@ -60,6 +66,7 @@ export default function MaintenanceForm() {
         />
       </FormField>
 
+      {submitError && <p className={styles.errorMsg}>{submitError}</p>}
       {success && <p className={styles.successMsg}>Maintenance expense logged!</p>}
 
       <div className={styles.actions}>
