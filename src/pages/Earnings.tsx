@@ -9,6 +9,7 @@ import { formatCurrency } from '@/lib/utils'
 import { useDeleteEarning, useEditEarning } from '@/hooks/useEntryActions'
 import ConfirmDialog from '@/components/ui/ConfirmDialog'
 import FormField from '@/components/ui/FormField'
+import Skeleton from '@/components/ui/Skeleton'
 import type { Earning } from '@/types'
 import styles from './Earnings.module.scss'
 
@@ -21,6 +22,7 @@ async function fetchEarnings(page: number): Promise<{ data: Earning[]; count: nu
   const { data, error, count } = await supabase
     .from('earnings')
     .select('*', { count: 'exact' })
+    .is('deleted_at', null)
     .order('dashed_at', { ascending: false })
     .range(from, to)
 
@@ -106,7 +108,13 @@ export default function Earnings() {
       </div>
 
       {isLoading ? (
-        <p className={styles.loading}>Loading…</p>
+        <div className={styles.card}>
+          <div className={styles.tableWrap}>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <Skeleton key={i} height={44} borderRadius={0} style={{ borderBottom: '1px solid #f5f5f5' }} />
+            ))}
+          </div>
+        </div>
       ) : isError ? (
         <p className={styles.error}>Failed to load earnings. Please refresh the page.</p>
       ) : !earnings.length ? (
@@ -145,6 +153,7 @@ export default function Earnings() {
                         </FormField>
                         <div className={styles.inlineActions}>
                           <button type="submit" className={styles.saveBtn} disabled={saving}>
+                            {saving && <span className={styles.spinner} aria-hidden="true" />}
                             {saving ? 'Saving…' : 'Save'}
                           </button>
                           <button type="button" className={styles.cancelBtn} onClick={() => { setEditingId(null); reset() }}>

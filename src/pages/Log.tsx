@@ -26,14 +26,16 @@ export default function Log() {
       </div>
 
       <div className={styles.card}>
-        <div className={styles.tabs}>
+        <div className={styles.tabs} role="tablist" aria-label="Entry type">
           {TABS.map(({ type, label, emoji }) => (
             <button
               key={type}
+              role="tab"
+              aria-selected={active === type}
               className={`${styles.tab} ${active === type ? styles.activeTab : ''}`}
               onClick={() => setActive(type)}
             >
-              <span className={styles.tabEmoji}>{emoji}</span>
+              <span className={styles.tabEmoji} aria-hidden="true">{emoji}</span>
               {label}
             </button>
           ))}

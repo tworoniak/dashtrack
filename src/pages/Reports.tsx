@@ -1,14 +1,29 @@
-import { useReports, exportEarningsCSV, exportExpensesCSV } from '@/hooks/useReports'
+import { useState } from 'react'
+import { useReports, exportEarningsCSV, exportExpensesCSV, FIRST_YEAR, CURRENT_YEAR } from '@/hooks/useReports'
+import Skeleton from '@/components/ui/Skeleton'
 import { formatCurrency } from '@/lib/utils'
 import styles from './Reports.module.scss'
 
+const YEARS = Array.from({ length: CURRENT_YEAR - FIRST_YEAR + 1 }, (_, i) => CURRENT_YEAR - i)
+
 export default function Reports() {
-  const { data, isLoading, isError } = useReports()
+  const [year, setYear] = useState(CURRENT_YEAR)
+  const [exportError, setExportError] = useState<string | null>(null)
+  const { data, isLoading, isError } = useReports(year)
 
   const ytdEarnings = data?.months.reduce((s, m) => s + m.grossEarnings, 0) ?? 0
   const ytdExpenses = data?.months.reduce((s, m) => s + m.totalExpenses, 0) ?? 0
   const ytdProfit   = ytdEarnings - ytdExpenses
   const ytdMiles    = data?.months.reduce((s, m) => s + m.totalMiles, 0) ?? 0
+
+  function handleExport(fn: () => void) {
+    setExportError(null)
+    try {
+      fn()
+    } catch {
+      setExportError('Export failed. Please try again.')
+    }
+  }
 
   return (
     <div className={styles.page}>
@@ -17,54 +32,74 @@ export default function Reports() {
           <h1 className={styles.title}>Reports</h1>
           <p className={styles.subtitle}>Year-to-date summary and monthly breakdown</p>
         </div>
-        <div className={styles.exportBtns}>
-          <button
-            className={styles.exportBtn}
-            onClick={() => data && exportEarningsCSV(data.allEarnings)}
-            disabled={!data}
+        <div className={styles.headerRight}>
+          <select
+            className={styles.yearSelect}
+            value={year}
+            onChange={e => setYear(Number(e.target.value))}
+            aria-label="Select year"
           >
-            Export earnings CSV
-          </button>
-          <button
-            className={styles.exportBtn}
-            onClick={() => data && exportExpensesCSV(data.allExpenses)}
-            disabled={!data}
-          >
-            Export expenses CSV
-          </button>
+            {YEARS.map(y => (
+              <option key={y} value={y}>{y}</option>
+            ))}
+          </select>
+          <div className={styles.exportBtns}>
+            <button
+              className={styles.exportBtn}
+              onClick={() => data && handleExport(() => exportEarningsCSV(data.allEarnings))}
+              disabled={!data}
+            >
+              Export earnings CSV
+            </button>
+            <button
+              className={styles.exportBtn}
+              onClick={() => data && handleExport(() => exportExpensesCSV(data.allExpenses))}
+              disabled={!data}
+            >
+              Export expenses CSV
+            </button>
+          </div>
         </div>
       </div>
 
+      {exportError && <p className={styles.error}>{exportError}</p>}
+
       <div className={styles.ytdStrip}>
         <div className={styles.ytdItem}>
-          <span className={styles.ytdLabel}>YTD gross earnings</span>
+          <span className={styles.ytdLabel}>Gross earnings</span>
           <span className={styles.ytdValue}>{formatCurrency(ytdEarnings)}</span>
         </div>
         <div className={styles.ytdDivider} />
         <div className={styles.ytdItem}>
-          <span className={styles.ytdLabel}>YTD total expenses</span>
+          <span className={styles.ytdLabel}>Total expenses</span>
           <span className={styles.ytdValue}>{formatCurrency(ytdExpenses)}</span>
         </div>
         <div className={styles.ytdDivider} />
         <div className={styles.ytdItem}>
-          <span className={styles.ytdLabel}>YTD net profit</span>
+          <span className={styles.ytdLabel}>Net profit</span>
           <span className={`${styles.ytdValue} ${ytdProfit >= 0 ? styles.profit : styles.loss}`}>
             {formatCurrency(ytdProfit)}
           </span>
         </div>
         <div className={styles.ytdDivider} />
         <div className={styles.ytdItem}>
-          <span className={styles.ytdLabel}>YTD miles logged</span>
+          <span className={styles.ytdLabel}>Miles logged</span>
           <span className={styles.ytdValue}>{ytdMiles.toLocaleString()} mi</span>
         </div>
       </div>
 
       {isLoading ? (
-        <p className={styles.loading}>Loading reports…</p>
+        <div className={styles.card}>
+          <div className={styles.tableWrap}>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <Skeleton key={i} height={44} borderRadius={0} style={{ borderBottom: '1px solid #f5f5f5' }} />
+            ))}
+          </div>
+        </div>
       ) : isError ? (
         <p className={styles.error}>Failed to load reports. Please refresh the page.</p>
       ) : !data?.months.length ? (
-        <p className={styles.empty}>No data yet. Start logging entries to see your monthly breakdown.</p>
+        <p className={styles.empty}>No data yet for {year}. Start logging entries to see your monthly breakdown.</p>
       ) : (
         <div className={styles.card}>
           <div className={styles.tableWrap}>

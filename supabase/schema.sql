@@ -40,10 +40,17 @@ create table if not exists expenses (
   created_at   timestamptz not null default now()
 );
 
+-- ─── Soft delete ─────────────────────────────────────────────
+-- Migration for existing databases:
+--   alter table earnings add column if not exists deleted_at timestamptz;
+--   alter table expenses add column if not exists deleted_at timestamptz;
+alter table earnings add column if not exists deleted_at timestamptz;
+alter table expenses add column if not exists deleted_at timestamptz;
+
 -- ─── Indexes ─────────────────────────────────────────────────
-create index if not exists earnings_user_dashed   on earnings (user_id, dashed_at desc);
-create index if not exists expenses_user_expensed on expenses (user_id, expensed_at desc);
-create index if not exists expenses_type          on expenses (user_id, type);
+create index if not exists earnings_user_dashed   on earnings (user_id, dashed_at desc) where deleted_at is null;
+create index if not exists expenses_user_expensed on expenses (user_id, expensed_at desc) where deleted_at is null;
+create index if not exists expenses_type          on expenses (user_id, type) where deleted_at is null;
 
 -- ─── Row Level Security ───────────────────────────────────────
 alter table earnings enable row level security;

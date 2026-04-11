@@ -1,17 +1,15 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format } from 'date-fns'
 import { otherSchema, type OtherSchema } from '@/lib/schemas'
 import { useLogOther } from '@/hooks/useLogEntry'
+import { useFormSubmit } from '@/hooks/useFormSubmit'
 import FormField from '@/components/ui/FormField'
 import styles from './forms.module.scss'
 
 const todayISO = () => format(new Date(), "yyyy-MM-dd'T'HH:mm")
 
 export default function OtherForm() {
-  const [success, setSuccess] = useState(false)
-  const [submitError, setSubmitError] = useState<string | null>(null)
   const { mutateAsync, isPending } = useLogOther()
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<OtherSchema>({
@@ -19,17 +17,7 @@ export default function OtherForm() {
     defaultValues: { dashed_at: todayISO() },
   })
 
-  async function onSubmit(values: OtherSchema) {
-    setSubmitError(null)
-    try {
-      await mutateAsync(values)
-      reset({ dashed_at: todayISO() })
-      setSuccess(true)
-      setTimeout(() => setSuccess(false), 3000)
-    } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : 'Failed to save. Please try again.')
-    }
-  }
+  const { onSubmit, submitError, success } = useFormSubmit(mutateAsync, () => reset({ dashed_at: todayISO() }))
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -76,6 +64,7 @@ export default function OtherForm() {
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submitBtn} disabled={isPending}>
+          {isPending && <span className={styles.spinner} aria-hidden="true" />}
           {isPending ? 'Saving…' : 'Log expense'}
         </button>
       </div>

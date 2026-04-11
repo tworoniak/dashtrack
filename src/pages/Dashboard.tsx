@@ -5,6 +5,7 @@ import EarningsChart from '@/components/dashboard/EarningsChart'
 import ExpenseBreakdown from '@/components/dashboard/ExpenseBreakdown'
 import RecentEntries from '@/components/dashboard/RecentEntries'
 import PeriodTabs from '@/components/ui/PeriodTabs'
+import Skeleton from '@/components/ui/Skeleton'
 import { formatCurrency } from '@/lib/utils'
 import type { Period } from '@/types'
 import styles from './Dashboard.module.scss'
@@ -24,7 +25,18 @@ export default function Dashboard() {
       </div>
 
       {isLoading ? (
-        <div className={styles.loading}>Loading...</div>
+        <>
+          <div className={styles.kpiGrid}>
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={i} height={90} borderRadius={14} />
+            ))}
+          </div>
+          <div className={styles.chartRow}>
+            <Skeleton height={220} borderRadius={14} />
+            <Skeleton height={220} borderRadius={14} />
+          </div>
+          <Skeleton height={180} borderRadius={14} />
+        </>
       ) : isError ? (
         <p className={styles.error}>Failed to load dashboard data. Please refresh the page.</p>
       ) : (

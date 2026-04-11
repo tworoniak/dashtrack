@@ -12,6 +12,7 @@ export interface Earning {
   notes: string | null
   dashed_at: string    // ISO datetime
   created_at: string
+  deleted_at: string | null
 }
 
 export interface Expense {
@@ -29,6 +30,7 @@ export interface Expense {
   deductible_amount?: number | null
   expensed_at: string  // ISO datetime
   created_at: string
+  deleted_at: string | null
 }
 
 // ─── Form schemas ─────────────────────────────────────────────────────────────

@@ -106,3 +106,20 @@
   border-radius: 8px;
   text-align: center;
 }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  vertical-align: -3px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
