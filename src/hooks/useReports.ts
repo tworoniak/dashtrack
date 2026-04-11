@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { format, startOfYear } from 'date-fns'
+import { format, startOfYear, endOfYear } from 'date-fns'
 import { supabase } from '@/lib/supabase'
 import { computeKpis } from '@/lib/utils'
 import type { Earning, Expense } from '@/types'
@@ -16,9 +16,10 @@ export interface MonthlyReport {
   expenseByType: Record<string, number>
 }
 
-async function fetchYTD(): Promise<{ earnings: Earning[]; expenses: Expense[] }> {
-  const from = startOfYear(new Date()).toISOString()
-  const to   = new Date().toISOString()
+async function fetchYear(year: number): Promise<{ earnings: Earning[]; expenses: Expense[] }> {
+  const yearDate = new Date(year, 0, 1)
+  const from = startOfYear(yearDate).toISOString()
+  const to   = endOfYear(yearDate).toISOString()
 
   const [{ data: earnings, error: e1 }, { data: expenses, error: e2 }] = await Promise.all([
     supabase.from('earnings').select('*').gte('dashed_at', from).lte('dashed_at', to),
@@ -70,11 +71,14 @@ function groupByMonth(earnings: Earning[], expenses: Expense[]): MonthlyReport[]
     })
 }
 
-export function useReports() {
+export const FIRST_YEAR = 2023
+export const CURRENT_YEAR = new Date().getFullYear()
+
+export function useReports(year: number = CURRENT_YEAR) {
   return useQuery({
-    queryKey: ['reports-ytd'],
+    queryKey: ['reports', year],
     queryFn: async () => {
-      const { earnings, expenses } = await fetchYTD()
+      const { earnings, expenses } = await fetchYear(year)
       return {
         months: groupByMonth(earnings, expenses),
         allEarnings: earnings,
@@ -124,9 +128,12 @@ function downloadCSV(rows: (string | number)[][], filename: string) {
 
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
   const url  = URL.createObjectURL(blob)
-  const a    = document.createElement('a')
-  a.href     = url
-  a.download = filename
-  a.click()
-  URL.revokeObjectURL(url)
+  try {
+    const a    = document.createElement('a')
+    a.href     = url
+    a.download = filename
+    a.click()
+  } finally {
+    URL.revokeObjectURL(url)
+  }
 }

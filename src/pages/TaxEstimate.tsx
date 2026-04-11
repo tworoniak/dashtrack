@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import { useReports } from '@/hooks/useReports'
+import { useReports, FIRST_YEAR, CURRENT_YEAR } from '@/hooks/useReports'
 import { formatCurrency } from '@/lib/utils'
 import styles from './TaxEstimate.module.scss'
+
+const YEARS = Array.from({ length: CURRENT_YEAR - FIRST_YEAR + 1 }, (_, i) => CURRENT_YEAR - i)
 
 // 2025 SE tax constants
 const SE_TAX_RATE        = 0.9235   // 92.35% of net self-employment income is subject to SE tax
@@ -38,9 +40,10 @@ const QUARTERS = [
 ]
 
 export default function TaxEstimate() {
-  const { data, isLoading, isError } = useReports()
+  const [year, setYear] = useState(CURRENT_YEAR)
   const [otherIncome, setOtherIncome] = useState(0)
   const [filingStatus, setFilingStatus] = useState<'single' | 'mfj'>('single')
+  const { data, isLoading, isError } = useReports(year)
 
   const ytdNet    = data?.months.reduce((s, m) => s + m.netProfit, 0) ?? 0
   const ytdMiles  = data?.months.reduce((s, m) => s + m.totalMiles, 0) ?? 0
@@ -67,11 +70,23 @@ export default function TaxEstimate() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <h1 className={styles.title}>Tax estimate</h1>
-        <p className={styles.subtitle}>
-          Estimated quarterly self-employment tax based on your YTD data.
-          Not tax advice — consult a CPA for your actual filing.
-        </p>
+        <div>
+          <h1 className={styles.title}>Tax estimate</h1>
+          <p className={styles.subtitle}>
+            Estimated quarterly self-employment tax based on your logged data.
+            Not tax advice — consult a CPA for your actual filing.
+          </p>
+        </div>
+        <select
+          className={styles.yearSelect}
+          value={year}
+          onChange={e => setYear(Number(e.target.value))}
+          aria-label="Select tax year"
+        >
+          {YEARS.map(y => (
+            <option key={y} value={y}>{y}</option>
+          ))}
+        </select>
       </div>
 
       {isLoading ? (
