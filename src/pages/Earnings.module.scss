@@ -68,6 +68,11 @@
   overflow: hidden;
 }
 
+.tableWrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -124,6 +129,8 @@
 .editBtn, .deleteBtn {
   font-size: 12px;
   padding: 4px 10px;
+  min-height: 44px;
+  min-width: 44px;
   border-radius: 6px;
   border: 1px solid var(--color-border);
   background: none;
@@ -253,4 +260,17 @@
 .pageInfo {
   font-size: 13px;
   color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .table {
+    th, td {
+      padding: 9px 10px;
+      font-size: 12px;
+    }
+  }
+
+  .statRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

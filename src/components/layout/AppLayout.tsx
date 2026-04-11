@@ -10,11 +10,11 @@ import {
 } from 'lucide-react';
 
 const NAV_ITEMS = [
-  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { to: '/log', label: 'Log entry', icon: Car },
-  { to: '/earnings', label: 'Earnings', icon: CircleDollarSign },
-  { to: '/reports', label: 'Reports', icon: ChartColumnIncreasing },
-  { to: '/tax-estimate', label: 'Tax estimate', icon: Landmark },
+  { to: '/dashboard', label: 'Dashboard', shortLabel: 'Dash', icon: LayoutDashboard },
+  { to: '/log', label: 'Log entry', shortLabel: 'Log', icon: Car },
+  { to: '/earnings', label: 'Earnings', shortLabel: 'Earn', icon: CircleDollarSign },
+  { to: '/reports', label: 'Reports', shortLabel: 'Reports', icon: ChartColumnIncreasing },
+  { to: '/tax-estimate', label: 'Tax estimate', shortLabel: 'Tax', icon: Landmark },
 ];
 
 export default function AppLayout() {
@@ -56,6 +56,21 @@ export default function AppLayout() {
       <main className={styles.main}>
         <Outlet />
       </main>
+
+      <nav className={styles.bottomNav}>
+        {NAV_ITEMS.map(({ to, shortLabel, icon: Icon }) => (
+          <NavLink
+            key={to}
+            to={to}
+            className={({ isActive }) =>
+              `${styles.bottomNavItem} ${isActive ? styles.bottomNavActive : ''}`
+            }
+          >
+            <Icon size={20} />
+            <span>{shortLabel}</span>
+          </NavLink>
+        ))}
+      </nav>
     </div>
   );
 }

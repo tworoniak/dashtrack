@@ -111,6 +111,7 @@ export default function Earnings() {
         <p className={styles.empty}>No earnings logged yet.</p>
       ) : (
         <div className={styles.card}>
+          <div className={styles.tableWrap}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -167,6 +168,7 @@ export default function Earnings() {
               ))}
             </tbody>
           </table>
+          </div>
 
           {totalPages > 1 && (
             <div className={styles.pagination}>

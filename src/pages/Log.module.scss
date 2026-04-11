@@ -68,3 +68,25 @@
 .formArea {
   padding: 1.5rem;
 }
+
+@media (max-width: 480px) {
+  .tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab {
+    flex-shrink: 0;
+    font-size: 11px;
+    padding: 10px 8px;
+    gap: 3px;
+  }
+
+  .tabEmoji {
+    font-size: 13px;
+  }
+
+  .formArea {
+    padding: 1rem;
+  }
+}
