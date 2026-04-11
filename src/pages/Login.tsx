@@ -10,8 +10,15 @@ export default function Login() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setLoading(true)
     setError(null)
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email.trim())) {
+      setError('Please enter a valid email address.')
+      return
+    }
+
+    setLoading(true)
 
     const { error } = await supabase.auth.signInWithOtp({
       email,

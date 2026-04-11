@@ -33,7 +33,7 @@ export default function AppLayout() {
           <span className={styles.brandName}>DashTrack</span>
         </div>
 
-        <nav className={styles.nav}>
+        <nav className={styles.nav} aria-label="Main navigation">
           {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
@@ -42,13 +42,13 @@ export default function AppLayout() {
                 `${styles.navItem} ${isActive ? styles.active : ''}`
               }
             >
-              <Icon size={16} />
+              <Icon size={16} aria-hidden="true" />
               {label}
             </NavLink>
           ))}
         </nav>
 
-        <button className={styles.signOut} onClick={handleSignOut}>
+        <button className={styles.signOut} onClick={handleSignOut} aria-label="Sign out of DashTrack">
           Sign out
         </button>
       </aside>
@@ -57,16 +57,17 @@ export default function AppLayout() {
         <Outlet />
       </main>
 
-      <nav className={styles.bottomNav}>
-        {NAV_ITEMS.map(({ to, shortLabel, icon: Icon }) => (
+      <nav className={styles.bottomNav} aria-label="Mobile navigation">
+        {NAV_ITEMS.map(({ to, label, shortLabel, icon: Icon }) => (
           <NavLink
             key={to}
             to={to}
+            aria-label={label}
             className={({ isActive }) =>
               `${styles.bottomNavItem} ${isActive ? styles.bottomNavActive : ''}`
             }
           >
-            <Icon size={20} />
+            <Icon size={20} aria-hidden="true" />
             <span>{shortLabel}</span>
           </NavLink>
         ))}
