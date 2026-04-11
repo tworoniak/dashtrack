@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { format } from 'date-fns'
@@ -33,7 +33,7 @@ export default function Earnings() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [deletingId, setDeletingId] = useState<string | null>(null)
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['earnings-history', page],
     queryFn: () => fetchEarnings(page),
   })
@@ -107,6 +107,8 @@ export default function Earnings() {
 
       {isLoading ? (
         <p className={styles.loading}>Loading…</p>
+      ) : isError ? (
+        <p className={styles.error}>Failed to load earnings. Please refresh the page.</p>
       ) : !earnings.length ? (
         <p className={styles.empty}>No earnings logged yet.</p>
       ) : (

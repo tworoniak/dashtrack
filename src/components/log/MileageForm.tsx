@@ -12,6 +12,7 @@ const todayISO = () => format(new Date(), "yyyy-MM-dd'T'HH:mm")
 
 export default function MileageForm() {
   const [success, setSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const { mutateAsync, isPending } = useLogMileage()
 
   const { register, handleSubmit, reset, control, formState: { errors } } = useForm<MileageSchema>({
@@ -23,10 +24,15 @@ export default function MileageForm() {
   const deduction = miles ? (miles * IRS_MILEAGE_RATE_2025).toFixed(2) : null
 
   async function onSubmit(values: MileageSchema) {
-    await mutateAsync(values)
-    reset({ dashed_at: todayISO() })
-    setSuccess(true)
-    setTimeout(() => setSuccess(false), 3000)
+    setSubmitError(null)
+    try {
+      await mutateAsync(values)
+      reset({ dashed_at: todayISO() })
+      setSuccess(true)
+      setTimeout(() => setSuccess(false), 3000)
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Failed to save. Please try again.')
+    }
   }
 
   return (
@@ -63,6 +69,7 @@ export default function MileageForm() {
         />
       </FormField>
 
+      {submitError && <p className={styles.errorMsg}>{submitError}</p>}
       {success && <p className={styles.successMsg}>Mileage logged!</p>}
 
       <div className={styles.actions}>

@@ -3,7 +3,7 @@ import { formatCurrency } from '@/lib/utils'
 import styles from './Reports.module.scss'
 
 export default function Reports() {
-  const { data, isLoading } = useReports()
+  const { data, isLoading, isError } = useReports()
 
   const ytdEarnings = data?.months.reduce((s, m) => s + m.grossEarnings, 0) ?? 0
   const ytdExpenses = data?.months.reduce((s, m) => s + m.totalExpenses, 0) ?? 0
@@ -61,6 +61,8 @@ export default function Reports() {
 
       {isLoading ? (
         <p className={styles.loading}>Loading reports…</p>
+      ) : isError ? (
+        <p className={styles.error}>Failed to load reports. Please refresh the page.</p>
       ) : !data?.months.length ? (
         <p className={styles.empty}>No data yet. Start logging entries to see your monthly breakdown.</p>
       ) : (

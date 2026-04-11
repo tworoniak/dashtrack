@@ -11,7 +11,7 @@ import styles from './Dashboard.module.scss'
 
 export default function Dashboard() {
   const [period, setPeriod] = useState<Period>('week')
-  const { kpis, expenseBreakdown, dailySeries, earnings, expenses, isLoading } = useDashboard(period)
+  const { kpis, expenseBreakdown, dailySeries, earnings, expenses, isLoading, isError } = useDashboard(period)
 
   return (
     <div className={styles.page}>
@@ -25,6 +25,8 @@ export default function Dashboard() {
 
       {isLoading ? (
         <div className={styles.loading}>Loading...</div>
+      ) : isError ? (
+        <p className={styles.error}>Failed to load dashboard data. Please refresh the page.</p>
       ) : (
         <>
           <div className={styles.kpiGrid}>

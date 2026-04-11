@@ -11,6 +11,7 @@ const todayISO = () => format(new Date(), "yyyy-MM-dd'T'HH:mm")
 
 export default function EarningForm() {
   const [success, setSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const { mutateAsync, isPending } = useLogEarning()
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<EarningSchema>({
@@ -19,10 +20,15 @@ export default function EarningForm() {
   })
 
   async function onSubmit(values: EarningSchema) {
-    await mutateAsync(values)
-    reset({ dashed_at: todayISO() })
-    setSuccess(true)
-    setTimeout(() => setSuccess(false), 3000)
+    setSubmitError(null)
+    try {
+      await mutateAsync(values)
+      reset({ dashed_at: todayISO() })
+      setSuccess(true)
+      setTimeout(() => setSuccess(false), 3000)
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Failed to save. Please try again.')
+    }
   }
 
   return (
@@ -71,6 +77,7 @@ export default function EarningForm() {
         />
       </FormField>
 
+      {submitError && <p className={styles.errorMsg}>{submitError}</p>}
       {success && <p className={styles.successMsg}>Earnings logged!</p>}
 
       <div className={styles.actions}>

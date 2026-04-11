@@ -11,6 +11,7 @@ const todayISO = () => format(new Date(), "yyyy-MM-dd'T'HH:mm")
 
 export default function OtherForm() {
   const [success, setSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const { mutateAsync, isPending } = useLogOther()
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<OtherSchema>({
@@ -19,10 +20,15 @@ export default function OtherForm() {
   })
 
   async function onSubmit(values: OtherSchema) {
-    await mutateAsync(values)
-    reset({ dashed_at: todayISO() })
-    setSuccess(true)
-    setTimeout(() => setSuccess(false), 3000)
+    setSubmitError(null)
+    try {
+      await mutateAsync(values)
+      reset({ dashed_at: todayISO() })
+      setSuccess(true)
+      setTimeout(() => setSuccess(false), 3000)
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Failed to save. Please try again.')
+    }
   }
 
   return (
@@ -65,6 +71,7 @@ export default function OtherForm() {
         />
       </FormField>
 
+      {submitError && <p className={styles.errorMsg}>{submitError}</p>}
       {success && <p className={styles.successMsg}>Expense logged!</p>}
 
       <div className={styles.actions}>
