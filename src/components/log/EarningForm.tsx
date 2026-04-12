@@ -65,8 +65,8 @@ export default function EarningForm() {
         />
       </FormField>
 
-      {submitError && <p className={styles.errorMsg}>{submitError}</p>}
-      {success && <p className={styles.successMsg}>Earnings logged!</p>}
+      {submitError && <p className={styles.errorMsg} role="alert">{submitError}</p>}
+      {success && <p className={styles.successMsg} role="status">Earnings logged!</p>}
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submitBtn} disabled={isPending}>

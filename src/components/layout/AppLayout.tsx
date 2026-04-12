@@ -29,7 +29,7 @@ export default function AppLayout() {
     <div className={styles.shell}>
       <aside className={styles.sidebar}>
         <div className={styles.brand}>
-          <span className={styles.logo}>D</span>
+          <span className={styles.logo} aria-hidden="true">D</span>
           <span className={styles.brandName}>DashTrack</span>
         </div>
 

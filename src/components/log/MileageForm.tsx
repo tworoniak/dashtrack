@@ -57,8 +57,8 @@ export default function MileageForm() {
         />
       </FormField>
 
-      {submitError && <p className={styles.errorMsg}>{submitError}</p>}
-      {success && <p className={styles.successMsg}>Mileage logged!</p>}
+      {submitError && <p className={styles.errorMsg} role="alert">{submitError}</p>}
+      {success && <p className={styles.successMsg} role="status">Mileage logged!</p>}
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submitBtn} disabled={isPending}>
