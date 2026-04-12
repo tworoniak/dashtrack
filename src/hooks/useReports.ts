@@ -72,9 +72,9 @@ function groupByMonth(earnings: Earning[], expenses: Expense[]): MonthlyReport[]
 }
 
 export const FIRST_YEAR = 2023
-export const CURRENT_YEAR = new Date().getFullYear()
+export function getCurrentYear() { return new Date().getFullYear() }
 
-export function useReports(year: number = CURRENT_YEAR) {
+export function useReports(year: number = getCurrentYear()) {
   return useQuery({
     queryKey: ['reports', year],
     queryFn: async () => {

@@ -9,8 +9,9 @@ export function useLogEarning() {
   return useMutation({
     mutationFn: async (values: EarningSchema) => {
       const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('Not authenticated')
       const { error } = await supabase.from('earnings').insert({
-        user_id:      user!.id,
+        user_id:      user.id,
         amount:       values.amount,
         active_hours: values.active_hours,
         notes:        values.notes ?? null,
@@ -28,9 +29,10 @@ export function useLogGas() {
   return useMutation({
     mutationFn: async (values: GasSchema) => {
       const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('Not authenticated')
       const amount = parseFloat((values.gallons * values.price_per_gallon).toFixed(2))
       const { error } = await supabase.from('expenses').insert({
-        user_id:          user!.id,
+        user_id:          user.id,
         type:             'gas',
         amount,
         gallons:          values.gallons,
@@ -49,9 +51,10 @@ export function useLogMileage() {
   return useMutation({
     mutationFn: async (values: MileageSchema) => {
       const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('Not authenticated')
       const deductible_amount = parseFloat((values.miles * IRS_MILEAGE_RATE_2025).toFixed(2))
       const { error } = await supabase.from('expenses').insert({
-        user_id:           user!.id,
+        user_id:           user.id,
         type:              'mileage',
         amount:            deductible_amount,
         miles:             values.miles,
@@ -71,8 +74,9 @@ export function useLogMaintenance() {
   return useMutation({
     mutationFn: async (values: MaintenanceSchema) => {
       const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('Not authenticated')
       const { error } = await supabase.from('expenses').insert({
-        user_id:     user!.id,
+        user_id:     user.id,
         type:        'maintenance',
         amount:      values.amount,
         description: values.description,
@@ -90,8 +94,9 @@ export function useLogOther() {
   return useMutation({
     mutationFn: async (values: OtherSchema) => {
       const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('Not authenticated')
       const { error } = await supabase.from('expenses').insert({
-        user_id:     user!.id,
+        user_id:     user.id,
         type:        'other',
         amount:      values.amount,
         description: values.description,

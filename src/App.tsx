@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import AppLayout from '@/components/layout/AppLayout'
+import styles from './App.module.scss'
 import Dashboard from '@/pages/Dashboard'
 import Log from '@/pages/Log'
 import Earnings from '@/pages/Earnings'
@@ -11,7 +12,11 @@ import { useSession } from '@/hooks/useSession'
 export default function App() {
   const { session, loading } = useSession()
 
-  if (loading) return null
+  if (loading) return (
+    <div className={styles.appLoading}>
+      <div className={styles.spinner} role="status" aria-label="Loading" />
+    </div>
+  )
 
   if (!session) {
     return (

@@ -44,7 +44,7 @@ export default function MileageForm() {
 
       {deduction && (
         <p className={styles.calcPreview}>
-          IRS deduction ({IRS_MILEAGE_RATE_2025}¢/mi): <strong>${deduction}</strong>
+          IRS deduction (${IRS_MILEAGE_RATE_2025}/mi): <strong>${deduction}</strong>
         </p>
       )}
 

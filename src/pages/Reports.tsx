@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import { useReports, exportEarningsCSV, exportExpensesCSV, FIRST_YEAR, CURRENT_YEAR } from '@/hooks/useReports'
+import { useReports, exportEarningsCSV, exportExpensesCSV, FIRST_YEAR, getCurrentYear } from '@/hooks/useReports'
 import Skeleton from '@/components/ui/Skeleton'
 import { formatCurrency } from '@/lib/utils'
 import styles from './Reports.module.scss'
 
-const YEARS = Array.from({ length: CURRENT_YEAR - FIRST_YEAR + 1 }, (_, i) => CURRENT_YEAR - i)
-
 export default function Reports() {
-  const [year, setYear] = useState(CURRENT_YEAR)
+  const [year, setYear] = useState(getCurrentYear)
+  const YEARS = Array.from({ length: year - FIRST_YEAR + 1 }, (_, i) => getCurrentYear() - i)
   const [exportError, setExportError] = useState<string | null>(null)
   const { data, isLoading, isError } = useReports(year)
 
@@ -131,7 +130,7 @@ export default function Reports() {
                     <td className={`${styles.right} ${m.netProfit >= 0 ? styles.profit : styles.loss}`}>
                       {formatCurrency(m.netProfit)}
                     </td>
-                    <td className={styles.right}>{formatCurrency(m.effectiveHourlyRate)}</td>
+                    <td className={styles.right}>{m.effectiveHourlyRate > 0 ? formatCurrency(m.effectiveHourlyRate) : '—'}</td>
                     <td className={styles.right}>{m.totalMiles.toLocaleString()}</td>
                   </tr>
                 ))}
