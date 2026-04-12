@@ -1,3 +1,7 @@
 // Base
 @use 'base/tokens';
 @use 'base/reset';
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

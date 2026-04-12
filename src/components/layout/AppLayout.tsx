@@ -21,8 +21,8 @@ export default function AppLayout() {
   const navigate = useNavigate();
 
   async function handleSignOut() {
-    await supabase.auth.signOut();
-    navigate('/login');
+    const { error } = await supabase.auth.signOut()
+    if (!error) navigate('/login')
   }
 
   return (

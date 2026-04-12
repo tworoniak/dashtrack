@@ -15,10 +15,12 @@ interface Props {
 
 export default function PeriodTabs({ value, onChange }: Props) {
   return (
-    <div className={styles.tabs}>
+    <div className={styles.tabs} role="tablist">
       {TABS.map(tab => (
         <button
           key={tab.value}
+          role="tab"
+          aria-selected={value === tab.value}
           className={`${styles.tab} ${value === tab.value ? styles.active : ''}`}
           onClick={() => onChange(tab.value)}
         >

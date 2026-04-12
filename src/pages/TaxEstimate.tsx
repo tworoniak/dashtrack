@@ -1,24 +1,22 @@
 import { useState } from 'react'
-import { useReports, FIRST_YEAR, CURRENT_YEAR } from '@/hooks/useReports'
+import { useReports, FIRST_YEAR, getCurrentYear } from '@/hooks/useReports'
 import { formatCurrency, round2 } from '@/lib/utils'
 import styles from './TaxEstimate.module.scss'
-
-const YEARS = Array.from({ length: CURRENT_YEAR - FIRST_YEAR + 1 }, (_, i) => CURRENT_YEAR - i)
 
 // 2025 SE tax constants
 const SE_TAX_RATE        = 0.9235   // 92.35% of net self-employment income is subject to SE tax
 const SE_TAX_RATE_FULL   = 0.153    // 15.3% SE tax rate (SS + Medicare)
 const SE_DEDUCTION_RATE  = 0.5      // Can deduct 50% of SE tax from income tax
 const FEDERAL_BRACKETS = [
-  { rate: 0.10, upTo: 11600 },
-  { rate: 0.12, upTo: 47150 },
-  { rate: 0.22, upTo: 100525 },
-  { rate: 0.24, upTo: 191950 },
-  { rate: 0.32, upTo: 243725 },
-  { rate: 0.35, upTo: 609350 },
+  { rate: 0.10, upTo: 11925 },
+  { rate: 0.12, upTo: 48475 },
+  { rate: 0.22, upTo: 103350 },
+  { rate: 0.24, upTo: 197300 },
+  { rate: 0.32, upTo: 250525 },
+  { rate: 0.35, upTo: 626350 },
   { rate: 0.37, upTo: Infinity },
 ]
-const STANDARD_DEDUCTION = 14600  // 2025 single filer
+const STANDARD_DEDUCTION = 15000  // 2025 single filer
 
 function calcFederalTax(taxableIncome: number): number {
   let tax = 0
@@ -40,7 +38,8 @@ const QUARTERS = [
 ]
 
 export default function TaxEstimate() {
-  const [year, setYear] = useState(CURRENT_YEAR)
+  const [year, setYear] = useState(getCurrentYear)
+  const YEARS = Array.from({ length: year - FIRST_YEAR + 1 }, (_, i) => getCurrentYear() - i)
   const [otherIncome, setOtherIncome] = useState(0)
   const [filingStatus, setFilingStatus] = useState<'single' | 'mfj'>('single')
   const { data, isLoading, isError } = useReports(year)
@@ -55,7 +54,7 @@ export default function TaxEstimate() {
   const seDeduction    = round2(seTax * SE_DEDUCTION_RATE)
 
   // Federal income tax estimate
-  const stdDeduction   = filingStatus === 'mfj' ? 29200 : STANDARD_DEDUCTION
+  const stdDeduction   = filingStatus === 'mfj' ? 30000 : STANDARD_DEDUCTION
   const totalGrossIncome = netSEIncome + otherIncome
   const taxableIncome  = Math.max(0, totalGrossIncome - stdDeduction - seDeduction)
   const federalTax     = calcFederalTax(taxableIncome)
@@ -126,12 +125,14 @@ export default function TaxEstimate() {
                 <label className={styles.label}>Filing status</label>
                 <div className={styles.toggleGroup}>
                   <button
+                    type="button"
                     className={`${styles.toggleBtn} ${filingStatus === 'single' ? styles.active : ''}`}
                     onClick={() => setFilingStatus('single')}
                   >
                     Single
                   </button>
                   <button
+                    type="button"
                     className={`${styles.toggleBtn} ${filingStatus === 'mfj' ? styles.active : ''}`}
                     onClick={() => setFilingStatus('mfj')}
                   >

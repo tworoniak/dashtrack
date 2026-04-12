@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { IRS_MILEAGE_RATE_2025 } from '@/lib/utils'
 import type { EarningSchema, GasSchema, MileageSchema, MaintenanceSchema, OtherSchema } from '@/lib/schemas'
+import type { EntryType } from '@/types'
 
 // ─── Delete ───────────────────────────────────────────────────────────────────
 
@@ -47,7 +48,7 @@ export function useEditExpense() {
   return useMutation({
     mutationFn: async ({ id, type, values }: {
       id: string
-      type: string
+      type: Exclude<EntryType, 'earning'>
       values: GasSchema | MileageSchema | MaintenanceSchema | OtherSchema
     }) => {
       let patch: Record<string, unknown> = { expensed_at: values.dashed_at }
