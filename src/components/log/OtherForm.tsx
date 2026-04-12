@@ -59,8 +59,8 @@ export default function OtherForm() {
         />
       </FormField>
 
-      {submitError && <p className={styles.errorMsg}>{submitError}</p>}
-      {success && <p className={styles.successMsg}>Expense logged!</p>}
+      {submitError && <p className={styles.errorMsg} role="alert">{submitError}</p>}
+      {success && <p className={styles.successMsg} role="status">Expense logged!</p>}
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submitBtn} disabled={isPending}>

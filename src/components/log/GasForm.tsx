@@ -66,8 +66,8 @@ export default function GasForm() {
         />
       </FormField>
 
-      {submitError && <p className={styles.errorMsg}>{submitError}</p>}
-      {success && <p className={styles.successMsg}>Gas fill-up logged!</p>}
+      {submitError && <p className={styles.errorMsg} role="alert">{submitError}</p>}
+      {success && <p className={styles.successMsg} role="status">Gas fill-up logged!</p>}
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submitBtn} disabled={isPending}>

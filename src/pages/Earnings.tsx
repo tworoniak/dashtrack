@@ -208,7 +208,7 @@ export default function Earnings() {
       {deletingId && (
         <ConfirmDialog
           title="Delete entry"
-          message="This earning entry will be permanently removed. This cannot be undone."
+          message="This earning entry will be removed. This action cannot be undone."
           confirmLabel={deleting ? 'Deleting…' : 'Delete'}
           danger
           onConfirm={handleDelete}

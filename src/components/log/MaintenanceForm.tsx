@@ -54,8 +54,8 @@ export default function MaintenanceForm() {
         />
       </FormField>
 
-      {submitError && <p className={styles.errorMsg}>{submitError}</p>}
-      {success && <p className={styles.successMsg}>Maintenance expense logged!</p>}
+      {submitError && <p className={styles.errorMsg} role="alert">{submitError}</p>}
+      {success && <p className={styles.successMsg} role="status">Maintenance expense logged!</p>}
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submitBtn} disabled={isPending}>
