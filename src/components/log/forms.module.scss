@@ -6,7 +6,7 @@
 
 .input,
 .textarea {
-  width: 100%;
+  // width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--color-border-form);
   border-radius: 8px;
@@ -14,7 +14,9 @@
   font-family: inherit;
   background: #ffffff;
   color: var(--color-text-primary);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 
   &:focus {
     outline: none;
@@ -108,7 +110,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .spinner {
